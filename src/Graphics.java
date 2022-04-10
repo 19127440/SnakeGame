@@ -52,13 +52,13 @@ implements ActionListener{
 		g2d.setColor(Color.red);
 		g2d.fillRect(f.getX() * d, f.getY() * d, d, d);
 		
-		g2d.setColor(Color.green);
+		g2d.setColor(new Color(30, 180, 70));
 		for (Rectangle r : s.getBody())
 		{
 			g2d.fill(r);
 		}
 		
-		g2d.setColor(new Color(30, 180, 70));
+		g2d.setColor(Color.green);
 		g2d.fillRect(s.getX(), s.getY(), d, d);
 		
 		if(state == "END")
