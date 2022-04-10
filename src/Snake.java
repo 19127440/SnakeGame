@@ -63,6 +63,14 @@ public class Snake {
 		body.add(0, temp);
 	}
 
+	public String getMove() {
+		return move;
+	}
+
+	public void setMove(String move) {
+		this.move = move;
+	}
+
 	public ArrayList<Rectangle> getBody() {
 		return body;
 	}

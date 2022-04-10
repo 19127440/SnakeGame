@@ -1,4 +1,4 @@
-import java.awt.event.KeyEvent;
+ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
@@ -26,7 +26,7 @@ implements KeyListener{
 		window.add(graphics);
 		
 		window.setTitle("Snake");
-		window.setSize(width * dimension + 2, height * dimension + 4);
+		window.setSize(width * dimension + 14, height * dimension + 37);
 		window.setVisible(true);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -34,6 +34,7 @@ implements KeyListener{
 	public void start()
 	{
 		graphics.state = "RUNNING";
+		player.setMove("RIGHT");
 	}
 	
 	public void update()
@@ -45,7 +46,7 @@ implements KeyListener{
 				player.grow();
 				food.random_spawn(player);
 			}
-			else if(checkWallCollision() || checkWallCollision())
+			else if(checkWallCollision() || checkSelfCollision())
 			{
 				graphics.state = "END";
 			}
@@ -67,9 +68,13 @@ implements KeyListener{
 	
 	private boolean checkFoodCollision()
 	{
-		if(player.getX() == food.getX() * dimension && player.getY() == food.getY() * dimension)
+		
+		for(int i = 0; i < player.getBody().size(); i++)
 		{
-			return true;
+			if(player.getBody().get(i).x == food.getX() * dimension && player.getBody().get(i).y == food.getY() * dimension)
+			{
+				return true;
+			}
 		}
 		return false;
 	}

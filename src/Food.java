@@ -16,8 +16,8 @@ public class Food {
 		{
 			onSnake = false;
 			
-			x = (int)(Math.random() * Game.width - 1);
-			y = (int)(Math.random() * Game.height - 1);
+			x = (int)(Math.random() * Game.width);
+			y = (int)(Math.random() * Game.height);
 			
 			for (Rectangle r : player.getBody())
 			{
