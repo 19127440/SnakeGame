@@ -1,4 +1,5 @@
 import java.awt.Rectangle;
+import java.util.Random;
 
 public class Food {
 	private int x;
@@ -6,7 +7,13 @@ public class Food {
 	
 	public Food(Snake player)
 	{
-		
+		newFood();
+	}
+	
+	public void newFood()
+	{
+		x = (new Random()).nextInt((int)(Game.width));
+		y = (new Random()).nextInt((int)(Game.height));
 	}
 	
 	public void random_spawn(Snake player)
@@ -15,9 +22,7 @@ public class Food {
 		while(onSnake)
 		{
 			onSnake = false;
-			
-			x = (int)(Math.random() * Game.width);
-			y = (int)(Math.random() * Game.height);
+			newFood();
 			
 			for (Rectangle r : player.getBody())
 			{

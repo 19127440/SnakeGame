@@ -58,10 +58,15 @@ implements ActionListener{
 			g2d.fill(r);
 		}
 		
-		if(state != "RUNNING" && state != "START")
+		g2d.setColor(new Color(30, 180, 70));
+		g2d.fillRect(s.getX(), s.getY(), d, d);
+		
+		if(state == "END")
 		{
+			g2d.setColor(Color.black);
+			g2d.fillRect(0, 0, w * d, h * d);
 			g2d.setColor(Color.white);
-			g2d.drawString("Your Score " + (s.getBody().size() - 3), w/2 * d - 40, h/2 * d - 20);
+			g2d.drawString("Your Score: " + (s.getBody().size() - 3), w/2 * d - 40, h/2 * d - 20);
 		}
 	}
 
