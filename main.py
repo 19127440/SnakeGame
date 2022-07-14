@@ -1,12 +1,12 @@
 from tkinter import *
 import random
 
-GAME_WIDTH = 700
-GAME_HEIGHT = 700
+GAME_WIDTH = 500
+GAME_HEIGHT = 500
 SPEED = 50
-SPACE_SIZE = 50
+SPACE_SIZE = 25
 BODY_PARTS = 3
-SNAKE_COLOR = "#000FF00"
+SNAKE_COLOR = "#00FF00"
 FOOD_COLOR = "#FF0000"
 BACKGROUND_COLOR = "#000000"
 
@@ -21,7 +21,7 @@ class Snake:
             seft.coordinates.append([0, 0])
 
         for x, y in seft.coordinates:
-            square = canvas.create_rectangle(x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill=SNAKE_COLOR, tags="snake")
+            square = canvas.create_rectangle(x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill=SNAKE_COLOR, tag="snake")
             seft.squares.append(square)
 
 
@@ -31,9 +31,9 @@ class Food:
         x = random.randint(0, (GAME_WIDTH/SPACE_SIZE - 1)) * SPACE_SIZE
         y = random.randint(0, (GAME_HEIGHT/SPACE_SIZE - 1)) * SPACE_SIZE
 
-        seft.coordonates = [x, y]
+        seft.coordinates = [x, y]
 
-        canvas.create_oval(x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill=FOOD_COLOR, tags="food")
+        canvas.create_oval(x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill=FOOD_COLOR, tag="food")
 
 
 def turn(snake, food):
@@ -58,6 +58,7 @@ def turn(snake, food):
 
         label.config(text="Score:{}".format(score))
         canvas.delete("food")
+        food = Food()
     else:
         del snake.coordinates[-1]
         canvas.delete(snake.squares[-1])
@@ -84,6 +85,7 @@ def change_direction(new_direction):
         if direction != 'down':
             direction = new_direction
 
+
 def check_collisions(snake):
     x, y = snake.coordinates[0]
 
@@ -98,17 +100,17 @@ def check_collisions(snake):
     return False
 
 def game_over():
-    canvas.dalete(ALL)
-    canvas.create_text(canvas.winfo_width()/2, canvas.winfo_height()/2, font=('consolas', 70), text="GAME OVER", fill="red", tags="game over")
+    canvas.delete(ALL)
+    canvas.create_text(canvas.winfo_width()/2, canvas.winfo_height()/2, font=('consolas', 70), text="GAME OVER", fill="red", tag="game over")
 
 window = Tk()
 window.title("Snake game")
 window.resizable(False, False)
 
 score = 0
-direct = 'down'
+direction = 'down'
 
-label = Label(window, text="Score:{}".format(score), font=('consolas', 40))
+label = Label(window, text="Score:{}".format(score), font=('consolas', 25))
 label.pack()
 
 canvas = Canvas(window, bg=BACKGROUND_COLOR, height=GAME_HEIGHT, width=GAME_WIDTH)
@@ -122,7 +124,7 @@ screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
 
 x = int((screen_width/2) - (window_width/2))
-x = int((screen_height/2) - (window_height/2))
+y = int((screen_height/2) - (window_height/2))
 
 window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
@@ -133,5 +135,7 @@ window.bind('<Down>', lambda event: change_direction('down'))
 
 snake = Snake()
 food = Food()
+
+turn(snake, food)
 
 window.mainloop()
